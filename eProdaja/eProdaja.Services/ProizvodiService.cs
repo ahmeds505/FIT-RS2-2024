@@ -1,4 +1,5 @@
 ﻿using eProdaja.Model;
+using eProdaja.Services.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,24 +10,28 @@ namespace eProdaja.Services
 {
     public class ProizvodiService : IProizvodiService
     {
-        public new List<Proizvodi> List = new List<Proizvodi>()
+        public EProdajaContext Context { get; set; }
+        public ProizvodiService(EProdajaContext context) 
         {
-            new Proizvodi()
+                Context = context;
+        }
+        
+        public virtual List<Model.Proizvodi> GetList()
+        {
+            var list = Context.Proizvodi.ToList();
+            var result = new List<Model.Proizvodi>();
+
+            foreach (var item in list)
             {
-                ProizvodId = 1,
-                Naziv = "Laptop",
-                Cijena = 999
-            },
-            new Proizvodi()
-            {
-                ProizvodId = 2,
-                Naziv = "Monitor",
-                Cijena = 450
+                result.Add(new Model.Proizvodi()
+                {
+                    Cijena = item.Cijena,
+                    Naziv = item.Naziv,
+                    ProizvodId = item.ProizvodId
+                });
             }
-        };
-        public virtual List<Proizvodi> GetList()
-        {
-            return List;
+
+            return result;
         }
     }
 }
