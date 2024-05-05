@@ -1,13 +1,17 @@
 ﻿using eProdaja.Model;
 using eProdaja.Model.Requests;
+using eProdaja.Model.SearchObjects;
 using eProdaja.Services.Database;
 using MapsterMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq.Dynamic;
+using System.Linq.Dynamic.Core;
 
 namespace eProdaja.Services
 {
@@ -21,28 +25,59 @@ namespace eProdaja.Services
             Mapper = mapper;
         }
         
-        public virtual List<Model.Korisnici> GetList()
+        public virtual eProdaja.Model.PagedResult<Model.Korisnici> GetList(KorisniciSearchObject searchObject)
         {
-            var list = Context.Korisnici.ToList();
-            List<Model.Korisnici> result = new List<Model.Korisnici>();
+            var query = Context.Korisnici.AsQueryable();
 
-            //foreach (var item in list) 
-            //{
-            //    result.Add(new Model.Korisnici()
-            //    {
-            //        KorisnikId = item.KorisnikId,
-            //        Ime = item.Ime,
-            //        Prezime = item.Prezime,
-            //        Email = item.Email,
-            //        Telefon = item.Telefon,
-            //        KorisnickoIme = item.KorisnickoIme,
-            //        Status = item.Status
-            //    });
-            //}
+            if(!string.IsNullOrWhiteSpace(searchObject?.ImeGTE))
+            {
+                query = query.Where(x => x.Ime.StartsWith(searchObject.ImeGTE));
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchObject?.PrezimeGTE))
+            {
+                query = query.Where(x => x.Prezime.StartsWith(searchObject.PrezimeGTE));
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchObject?.Email))
+            {
+                query = query.Where(x => x.Email == searchObject.Email);
+            }
+
+            if (!string.IsNullOrWhiteSpace(searchObject?.KorisnickoIme))
+            {
+                query = query.Where(x => x.KorisnickoIme == searchObject.KorisnickoIme);
+            }
+
+            if(searchObject.IsKorisniciUlogeIncluded == true)
+            {
+                query = query.Include(x => x.KorisniciUloge).ThenInclude(x => x.Uloga);
+            }
+
+            int count = query.Count();
+
+            if (!string.IsNullOrWhiteSpace(searchObject.OrderBy))
+            {
+
+            }
+
+            if(searchObject.Page.HasValue == true && searchObject.PageSize.HasValue == true)
+            {
+                query = query.Skip(searchObject.Page.Value * searchObject.PageSize.Value).Take(searchObject.PageSize.Value);
+            }
+
+            var list = query.ToList();
+            
+            List<Model.Korisnici> result = new List<Model.Korisnici>();
 
             result = Mapper.Map(list, result);
 
-            return result;
+            eProdaja.Model.PagedResult<Model.Korisnici> response = new eProdaja.Model.PagedResult<Model.Korisnici>();
+
+            response.ResultList = result;
+            response.Count = count;
+
+            return response;
         }
 
         public Model.Korisnici Insert(KorisniciInsert item)
