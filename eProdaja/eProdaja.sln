@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34601.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eProdaja.API", "eProdaja.API\eProdaja.API.csproj", "{80CC89A0-7C69-4E57-8DFA-A437D7359FA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eProdaja.API", "eProdaja.API\eProdaja.API.csproj", "{80CC89A0-7C69-4E57-8DFA-A437D7359FA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eProdaja.Model", "eProdaja.Model\eProdaja.Model.csproj", "{28C846B8-C030-4E86-886D-E4225F1C1C45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eProdaja.Model", "eProdaja.Model\eProdaja.Model.csproj", "{28C846B8-C030-4E86-886D-E4225F1C1C45}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eProdaja.Services", "eProdaja.Services\eProdaja.Services.csproj", "{5BF3D60F-E19B-44B4-BCB7-320BC322BF91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eProdaja.Services", "eProdaja.Services\eProdaja.Services.csproj", "{5BF3D60F-E19B-44B4-BCB7-320BC322BF91}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
