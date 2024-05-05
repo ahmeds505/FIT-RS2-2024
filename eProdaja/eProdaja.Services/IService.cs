@@ -8,8 +8,11 @@ using System.Threading.Tasks;
 
 namespace eProdaja.Services
 {
-    public interface IProizvodiService : IService<Proizvodi, ProizvodiSearchObject>
+    public interface IService<TModel, TSearch> where TSearch : BaseSearchObject
     {
+        public PagedResult<TModel> GetPaged(TSearch search);
+
+        TModel GetById (int id);
 
     }
 }

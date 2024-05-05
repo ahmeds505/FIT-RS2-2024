@@ -7,12 +7,12 @@ namespace eProdaja.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProizvodiController : BaseController<Proizvodi, ProizvodiSearchObject>
+    public class VrsteProizvodaController : BaseController<VrsteProizvoda, VrsteProizvodaSearchObject>
     {
-        public ProizvodiController(IProizvodiService service) : base(service)
+        public VrsteProizvodaController(IVrsteProizvodaService service) : base(service)
         {
         }
 
-      
+       
     }
 }
