@@ -9,13 +9,9 @@ using System.Threading.Tasks;
 
 namespace eProdaja.Services
 {
-    public interface IKorisniciService
+    public interface IKorisniciService : ICRUDService<Model.Korisnici, KorisniciSearchObject, KorisniciInsert, KorisniciUpdate>
     {
-        PagedResult<Korisnici> GetList(KorisniciSearchObject searchObject);
-
-        Korisnici Insert (KorisniciInsert item);
-
-        Korisnici Update(int id, KorisniciUpdate item);
+        
 
     }
 }

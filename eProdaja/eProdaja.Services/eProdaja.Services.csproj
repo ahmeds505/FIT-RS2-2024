@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-<<<<<<< Updated upstream
-=======
     <PackageReference Include="Mapster" Version="7.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.15">
       <PrivateAssets>all</PrivateAssets>
@@ -24,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
->>>>>>> Stashed changes
     <ProjectReference Include="..\eProdaja.Model\eProdaja.Model.csproj" />
   </ItemGroup>
 
