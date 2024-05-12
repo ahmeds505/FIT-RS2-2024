@@ -1,4 +1,5 @@
 ﻿using eProdaja.Model;
+using eProdaja.Model.Requests;
 using eProdaja.Model.SearchObjects;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace eProdaja.Services
 {
-    public interface IVrsteProizvodaService : IService<VrsteProizvoda, VrsteProizvodaSearchObject>
+    public interface IVrsteProizvodaService : ICRUDService<VrsteProizvoda, VrsteProizvodaSearchObject, VrsteProizvodaUpsertRequest, VrsteProizvodaUpsertRequest>
     {
 
     }

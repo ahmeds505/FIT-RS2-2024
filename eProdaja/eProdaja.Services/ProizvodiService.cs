@@ -1,10 +1,9 @@
 ﻿using eProdaja.Model;
-<<<<<<< Updated upstream
-=======
+using eProdaja.Model.Requests;
 using eProdaja.Model.SearchObjects;
 using eProdaja.Services.Database;
+using eProdaja.Services.ProizvodiStateMachine;
 using MapsterMapper;
->>>>>>> Stashed changes
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,33 +12,14 @@ using System.Threading.Tasks;
 
 namespace eProdaja.Services
 {
-    public class ProizvodiService : BaseService<Model.Proizvodi, ProizvodiSearchObject, Database.Proizvodi>, IProizvodiService
+    public class ProizvodiService : BaseCRUDService<Model.Proizvodi, ProizvodiSearchObject, Database.Proizvodi, ProizvodiInsert, ProizvodiUpdate>, IProizvodiService
     {
-<<<<<<< Updated upstream
-        public new List<Proizvodi> List = new List<Proizvodi>()
+        public BaseProizvodiState BaseProizvodiState { get; set; }
+        public ProizvodiService(EProdajaContext context, IMapper mapper, BaseProizvodiState baseProizvodiState) : base(context, mapper)
         {
-            new Proizvodi()
-            {
-                ProizvodId = 1,
-                Naziv = "Laptop",
-                Cijena = 999
-            },
-            new Proizvodi()
-            {
-                ProizvodId = 2,
-                Naziv = "Monitor",
-                Cijena = 450
-            }
-        };
-        public virtual List<Proizvodi> GetList()
-        {
-            return List;
-=======
-        
-        public ProizvodiService(EProdajaContext context, IMapper mapper) : base(context, mapper)
-        {
-           
+            BaseProizvodiState = baseProizvodiState;
         }
+
 
         public override IQueryable<Database.Proizvodi> AddFilter(ProizvodiSearchObject search, IQueryable<Database.Proizvodi> query)
         {
@@ -51,7 +31,31 @@ namespace eProdaja.Services
             }
 
             return filteredQuery;
->>>>>>> Stashed changes
+        }
+
+        public override Model.Proizvodi Insert(ProizvodiInsert request)
+        {
+            var state = BaseProizvodiState.CreateState("initial");
+
+            return state.Insert(request);
+        }
+
+        public override Model.Proizvodi Update(int id, ProizvodiUpdate request)
+        {
+            var entity = GetById(id);
+
+            var state = BaseProizvodiState.CreateState(entity.StateMachine);
+
+            return state.Update(id, request);
+        }
+
+        public Model.Proizvodi Activate(int id)
+        {
+            var entity = GetById(id);
+
+            var state = BaseProizvodiState.CreateState(entity.StateMachine);
+
+            return state.Activate(id);
         }
     }
 }
