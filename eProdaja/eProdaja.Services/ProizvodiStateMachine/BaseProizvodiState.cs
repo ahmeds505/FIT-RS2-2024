@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Microsoft.Extensions.DependencyInjection;
+using eProdaja.Model;
 
 namespace eProdaja.Services.ProizvodiStateMachine
 {
@@ -25,22 +26,34 @@ namespace eProdaja.Services.ProizvodiStateMachine
         }
         public virtual Model.Proizvodi Insert(ProizvodiInsert request)
         {
-            throw new Exception("Method not allowed");
+            throw new UserException("Metoda nije dozvoljena");
         }
 
         public virtual Model.Proizvodi Update(int id, ProizvodiUpdate request)
         {
-            throw new Exception("Method not allowed");
+            throw new UserException("Metoda nije dozvoljena");
+
         }
 
         public virtual Model.Proizvodi Activate(int id)
         {
-            throw new Exception("Method not allowed");
+            throw new UserException("Metoda nije dozvoljena");
+
         }
 
         public virtual Model.Proizvodi Hide(int id)
         {
-            throw new Exception("Method not allowed");
+            throw new UserException("Metoda nije dozvoljena");
+        }
+
+        public virtual Model.Proizvodi Edit(int id)
+        {
+            throw new UserException("Metoda nije dozvoljena");
+        }
+
+        public virtual List<string> AllowedActions(Database.Proizvodi entity) 
+        {
+            throw new UserException("Metoda nije dozvoljena");
         }
 
         public BaseProizvodiState CreateState(string stateName)
@@ -53,6 +66,8 @@ namespace eProdaja.Services.ProizvodiStateMachine
                     return ServiceProvider.GetService<DraftProizvodiState>();
                 case "active":
                     return ServiceProvider.GetService<ActiveProizvodiState>();
+                case "hidden":
+                    return ServiceProvider.GetService<HiddenProizvodiState>();
 
                 default: throw new Exception("State not recognized");
             }

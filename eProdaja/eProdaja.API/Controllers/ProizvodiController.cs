@@ -21,5 +21,23 @@ namespace eProdaja.API.Controllers
         {
             return _service.Activate(id);
         }
+
+        [HttpPut("{id}/edit")]
+        public Proizvodi Edit(int id)
+        {
+            return _service.Edit(id);
+        }
+
+        [HttpPut("{id}/hide")]
+        public Proizvodi Hide(int id)
+        {
+            return _service.Hide(id);
+        }
+
+        [HttpGet("{id}/allowedActions")]
+        public List<string> AllowedActions(int id)
+        {
+            return _service.AllowedActions(id);
+        }
     }
 }

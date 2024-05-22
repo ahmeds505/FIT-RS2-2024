@@ -11,7 +11,7 @@ namespace eProdaja.Services
 {
     public interface IKorisniciService : ICRUDService<Model.Korisnici, KorisniciSearchObject, KorisniciInsert, KorisniciUpdate>
     {
-        
+        Model.Korisnici Login(string username, string password);
 
     }
 }
