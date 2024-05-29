@@ -29,5 +29,9 @@ namespace eProdaja.Services.ProizvodiStateMachine
             return Mapper.Map<Model.Proizvodi>(entity);
         }
 
+        public override List<string> AllowedActions(Proizvodi entity)
+        {
+            return new List<string>(){ nameof(Insert) };
+        }
     }
 }
