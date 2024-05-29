@@ -1,4 +1,6 @@
-﻿using eProdaja.Model.Requests;
+﻿using EasyNetQ;
+using eProdaja.Model.Messages;
+using eProdaja.Model.Requests;
 using eProdaja.Services.Database;
 using MapsterMapper;
 using System;
@@ -36,9 +38,17 @@ namespace eProdaja.Services.ProizvodiStateMachine
 
             entity.StateMachine = "active";
 
+            var mappedEntity = Mapper.Map<Model.Proizvodi>(entity);
+
+            var bus = RabbitHutch.CreateBus("host=localhost");
+
+            ProizvodiActivated message = new ProizvodiActivated() { Proizvod = mappedEntity };
+
+            bus.PubSub.Publish(message);
+
             Context.SaveChanges();
 
-            return Mapper.Map<Model.Proizvodi>(entity);
+            return mappedEntity;
         }
     }
 }

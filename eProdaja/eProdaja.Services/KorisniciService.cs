@@ -62,6 +62,8 @@ namespace eProdaja.Services
                 throw new Exception("Lozinka i LozinkaPotvrda moraju biti iste!");
             }
 
+
+
             entity.LozinkaSalt = GenerateSalt();
             entity.LozinkaHash = GenerateHash(entity.LozinkaSalt, request.Lozinka);
 
@@ -105,6 +107,23 @@ namespace eProdaja.Services
             }
         }
 
-        
+        public Model.Korisnici Login(string username, string password)
+        {
+            var entity = Context.Korisnici.Include(x=>x.KorisniciUloge).ThenInclude(x=>x.Uloga).FirstOrDefault(x => x.KorisnickoIme == username);
+
+            if(entity == null)
+            {
+                return null;
+            }
+
+            var hash = GenerateHash(entity.LozinkaSalt, password);
+
+            if(hash != entity.LozinkaHash)
+            {
+                return null;
+            }
+
+            return Mapper.Map<Model.Korisnici>(entity);
+        }
     }
 }

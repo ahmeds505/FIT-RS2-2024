@@ -2,6 +2,7 @@
 using eProdaja.Model.Requests;
 using eProdaja.Model.SearchObjects;
 using eProdaja.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eProdaja.API.Controllers
@@ -14,6 +15,16 @@ namespace eProdaja.API.Controllers
         {
         }
 
-       
+        [Authorize(Roles = "Admin")]
+        public override VrsteProizvoda Insert(VrsteProizvodaUpsertRequest request)
+        {
+            return base.Insert(request);
+        }
+
+        [AllowAnonymous]
+        public override PagedResult<VrsteProizvoda> GetList([FromQuery] VrsteProizvodaSearchObject searchObject)
+        {
+            return base.GetList(searchObject);
+        }
     }
 }
