@@ -65,6 +65,8 @@ namespace eProdaja.Services
                 throw new Exception("Lozinka i LozinkaPotvrda moraju biti iste!");
             }
 
+
+
             entity.LozinkaSalt = GenerateSalt();
             entity.LozinkaHash = GenerateHash(entity.LozinkaSalt, request.Lozinka);
 
@@ -110,7 +112,8 @@ namespace eProdaja.Services
 
         public Model.Korisnici Login(string username, string password)
         {
-            var entity = Context.Korisnici.FirstOrDefault(x => x.KorisnickoIme == username);
+            var entity = Context.Korisnici.Include(x=>x.KorisniciUloge).ThenInclude(x=>x.Uloga).FirstOrDefault(x => x.KorisnickoIme == username);
+
 
             if(entity == null)
             {

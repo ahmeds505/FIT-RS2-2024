@@ -9,6 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eProdaja.Model", "eProdaja.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eProdaja.Services", "eProdaja.Services\eProdaja.Services.csproj", "{5BF3D60F-E19B-44B4-BCB7-320BC322BF91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eProdaja.Subscriber", "eProdaja.Subscriber\eProdaja.Subscriber.csproj", "{3F59F7FD-A55B-4E70-8502-D0C77B213A44}"
+	ProjectSection(ProjectDependencies) = postProject
+		{28C846B8-C030-4E86-886D-E4225F1C1C45} = {28C846B8-C030-4E86-886D-E4225F1C1C45}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +32,10 @@ Global
 		{5BF3D60F-E19B-44B4-BCB7-320BC322BF91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BF3D60F-E19B-44B4-BCB7-320BC322BF91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BF3D60F-E19B-44B4-BCB7-320BC322BF91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F59F7FD-A55B-4E70-8502-D0C77B213A44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F59F7FD-A55B-4E70-8502-D0C77B213A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F59F7FD-A55B-4E70-8502-D0C77B213A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F59F7FD-A55B-4E70-8502-D0C77B213A44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
